@@ -478,5 +478,175 @@
       "date": "2026-07-21"
     },
     "vector": null
+  },
+  "vec_meal_1574c60f": {
+    "doc_id": "vec_meal_1574c60f",
+    "content": "Meal breakfast: 3 scrambled eggs, 2 sourdough toast, 1/2 avocado. Detected items: 3.0 Eggs, 2.0 Toast, 0.5 Avocado Slice. Total calories: 456.0 kcal, protein: 25.9g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "breakfast",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_meal_170bd031": {
+    "doc_id": "vec_meal_170bd031",
+    "content": "Meal lunch: 200g chicken breast, 1 cup cooked rice, 1 cup steamed broccoli. Detected items: 1.0 Chicken, 1.0 White Rice, 1.0 Steamed Broccoli. Total calories: 425.0 kcal, protein: 39.0g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "lunch",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_rep_9db3dce5": {
+    "doc_id": "vec_rep_9db3dce5",
+    "content": "Daily Report 2026-07-21: Goal Compliance Score 39.7/100. Insights: \u26a1 Protein deficit detected. You need 100.1g more protein to meet your target of 165.0g. \ud83c\udf4f You have a deficit remaining of 1319.0 kcal for today. \ud83c\udf31 Consider adding leafy greens, chia seeds, or berries to reach 30.0g of fiber. \ud83d\udca1 Tip: Try distributing protein evenly across meals (25g-35g per meal) for optimal muscle recovery.",
+    "metadata": {
+      "category": "daily_report",
+      "date": "2026-07-21",
+      "compliance_score": 39.7
+    },
+    "vector": null
+  },
+  "vec_meal_e777320c": {
+    "doc_id": "vec_meal_e777320c",
+    "content": "Meal breakfast: 3 eggs, 2 slices toast. Detected items: 3.0 Eggs, 2.0 Toast. Total calories: 376.0 kcal, protein: 24.9g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "breakfast",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_meal_479b286b": {
+    "doc_id": "vec_meal_479b286b",
+    "content": "Meal breakfast: 3 eggs. Detected items: 3.0 Eggs. Total calories: 216.0 kcal, protein: 18.9g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "breakfast",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_meal_99f3c41c": {
+    "doc_id": "vec_meal_99f3c41c",
+    "content": "Meal lunch: 1 plate chole bhature. Detected items: 1.0 Plate Chole Bhature (Google Search Grounded). Total calories: 268.0 kcal, protein: 13.0g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "lunch",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_meal_c7d89313": {
+    "doc_id": "vec_meal_c7d89313",
+    "content": "Meal lunch: 1 iced matcha latte. Detected items: 1.0 Black Coffee. Total calories: 5.0 kcal, protein: 0.3g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "lunch",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_meal_9c8314eb": {
+    "doc_id": "vec_meal_9c8314eb",
+    "content": "Meal breakfast: 3 scrambled eggs, 2 sourdough toast, 1/2 avocado. Detected items: 3.0 Scrambled Eggs (Google Search Grounded), 2.0 Sourdough Toast (Google Search Grounded), 0.5 Avocado Slice. Total calories: 1423.0 kcal, protein: 109.0g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "breakfast",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_meal_2d2aba72": {
+    "doc_id": "vec_meal_2d2aba72",
+    "content": "Meal lunch: 200g chicken breast, 1 cup cooked rice, 1 cup steamed broccoli. Detected items: 1.0 200G Chicken Breast (Google Search Grounded), 1.0 White Rice, 1.0 Steamed Broccoli. Total calories: 589.0 kcal, protein: 32.0g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "lunch",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_rep_2fb518ba": {
+    "doc_id": "vec_rep_2fb518ba",
+    "content": "Daily Report 2026-07-21: Goal Compliance Score 90.1/100. Insights: \u26a1 Protein deficit detected. You need 24.0g more protein to meet your target of 165.0g. \ud83c\udf4f You have a deficit remaining of 188.0 kcal for today. \ud83e\udd57 High fiber goal met (31.0g consumed), supporting gut health and satiety. \ud83d\udca1 Tip: Try distributing protein evenly across meals (25g-35g per meal) for optimal muscle recovery.",
+    "metadata": {
+      "category": "daily_report",
+      "date": "2026-07-21",
+      "compliance_score": 90.1
+    },
+    "vector": null
+  },
+  "vec_meal_bb8bad7a": {
+    "doc_id": "vec_meal_bb8bad7a",
+    "content": "Meal breakfast: 3 eggs, 2 slices toast. Detected items: 3.0 Eggs, 2.0 Toast. Total calories: 376.0 kcal, protein: 24.9g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "breakfast",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_meal_1e3833d0": {
+    "doc_id": "vec_meal_1e3833d0",
+    "content": "Meal breakfast: 3 eggs. Detected items: 3.0 Eggs. Total calories: 216.0 kcal, protein: 18.9g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "breakfast",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_meal_b8300d3b": {
+    "doc_id": "vec_meal_b8300d3b",
+    "content": "Meal lunch: 200g chicken breast, 1 cup cooked rice, 1 cup steamed broccoli. Detected items: 1.0 Chicken, 1.0 White Rice, 1.0 Steamed Broccoli. Total calories: 425.0 kcal, protein: 39.0g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "lunch",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_meal_6c7b8b55": {
+    "doc_id": "vec_meal_6c7b8b55",
+    "content": "Meal breakfast: 3 scrambled eggs, 2 sourdough toast, 1/2 avocado. Detected items: 3.0 Eggs, 2.0 Toast, 0.5 Avocado Slice. Total calories: 456.0 kcal, protein: 25.9g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "breakfast",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_rep_ada5f0af": {
+    "doc_id": "vec_rep_ada5f0af",
+    "content": "Daily Report 2026-07-21: Goal Compliance Score 39.7/100. Insights: \u26a1 Protein deficit detected. You need 100.1g more protein to meet your target of 165.0g. \ud83c\udf4f You have a deficit remaining of 1319.0 kcal for today. \ud83c\udf31 Consider adding leafy greens, chia seeds, or berries to reach 30.0g of fiber. \ud83d\udca1 Tip: Try distributing protein evenly across meals (25g-35g per meal) for optimal muscle recovery.",
+    "metadata": {
+      "category": "daily_report",
+      "date": "2026-07-21",
+      "compliance_score": 39.7
+    },
+    "vector": null
+  },
+  "vec_meal_b72dae17": {
+    "doc_id": "vec_meal_b72dae17",
+    "content": "Meal breakfast: 3 eggs, 2 slices toast. Detected items: 3.0 Eggs, 2.0 Toast. Total calories: 376.0 kcal, protein: 24.9g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "breakfast",
+      "date": "2026-07-21"
+    },
+    "vector": null
+  },
+  "vec_meal_a9c0d90d": {
+    "doc_id": "vec_meal_a9c0d90d",
+    "content": "Meal breakfast: 3 eggs. Detected items: 3.0 Eggs. Total calories: 216.0 kcal, protein: 18.9g.",
+    "metadata": {
+      "category": "meal_log",
+      "meal_type": "breakfast",
+      "date": "2026-07-21"
+    },
+    "vector": null
   }
 }
