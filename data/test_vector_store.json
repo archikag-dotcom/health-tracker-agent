@@ -1,0 +1,20 @@
+{
+  "doc_1": {
+    "doc_id": "doc_1",
+    "content": "Grilled chicken breast with brown rice and steamed broccoli",
+    "metadata": {},
+    "vector": null
+  },
+  "doc_2": {
+    "doc_id": "doc_2",
+    "content": "Whey protein smoothie with banana and peanut butter",
+    "metadata": {},
+    "vector": null
+  },
+  "doc_3": {
+    "doc_id": "doc_3",
+    "content": "Pan seared salmon fillet with quinoa and avocado",
+    "metadata": {},
+    "vector": null
+  }
+}

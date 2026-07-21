@@ -1,0 +1,72 @@
+[
+  {
+    "id": "golden_01",
+    "input_type": "text",
+    "input_raw": "3 eggs, 2 slices toast",
+    "meal_type": "breakfast",
+    "expected_macros": {
+      "calories": 376.0,
+      "protein_g": 24.9,
+      "carbs_g": 31.2,
+      "fat_g": 16.4,
+      "fiber_g": 3.0
+    },
+    "max_allowed_error_pct": 5.0
+  },
+  {
+    "id": "golden_02",
+    "input_type": "text",
+    "input_raw": "200g chicken breast, 1 cup cooked rice, 1 cup steamed broccoli",
+    "meal_type": "lunch",
+    "expected_macros": {
+      "calories": 425.0,
+      "protein_g": 39.0,
+      "carbs_g": 56.0,
+      "fat_g": 5.6,
+      "fiber_g": 6.0
+    },
+    "max_allowed_error_pct": 5.0
+  },
+  {
+    "id": "golden_03",
+    "input_type": "text",
+    "input_raw": "1 scoop whey protein, 1 banana, 250ml milk",
+    "meal_type": "snack",
+    "expected_macros": {
+      "calories": 330.0,
+      "protein_g": 32.0,
+      "carbs_g": 39.0,
+      "fat_g": 5.0,
+      "fiber_g": 3.0
+    },
+    "max_allowed_error_pct": 5.0
+  },
+  {
+    "id": "golden_04",
+    "input_type": "text",
+    "input_raw": "200g sirloin steak, 1 sweet potato, mixed salad",
+    "meal_type": "dinner",
+    "expected_macros": {
+      "calories": 554.0,
+      "protein_g": 40.3,
+      "carbs_g": 44.0,
+      "fat_g": 24.2,
+      "fiber_g": 5.8
+    },
+    "max_allowed_error_pct": 5.0
+  },
+  {
+    "id": "golden_05",
+    "input_type": "text",
+    "input_raw": "150g grilled salmon, 1 cup cooked quinoa, 1/2 avocado",
+    "meal_type": "lunch",
+    "expected_macros": {
+      "calories": 510.0,
+      "protein_g": 29.5,
+      "carbs_g": 43.2,
+      "fat_g": 24.3,
+      "fiber_g": 8.4
+    },
+    "max_allowed_error_pct": 5.0
+  }
+]

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI Health Tracker Agent powered by Python ADK multi-agent architecture for meal macro logging and daily report generation.">
+  <title>Health Tracker Agent | Fitness Goal & Macro Monitor</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <!-- Marked parser for rendering markdown daily reports -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Navbar Header -->
+    <header class="navbar">
+      <div class="brand">
+        <div class="brand-icon">🥗</div>
+        <div>
+          <h1 class="brand-title">Health Tracker Agent</h1>
+          <div style="font-size: 0.78rem; color: var(--primary-emerald); font-weight: 600;">PYTHON ADK MULTI-AGENT ENGINE</div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <input type="date" id="dateSelector" class="date-picker-input">
+        <button id="btnOpenProfile" class="btn btn-secondary">👤 Profile & Goals</button>
+        <button id="btnGenerateReport" class="btn btn-primary">📊 Daily Report</button>
+      </div>
+    </header>
+
+    <!-- Dashboard Overview Grid -->
+    <section class="dashboard-grid">
+      
+      <!-- Caloric Progress Ring Card -->
+      <div class="main-ring-card">
+        <div class="macro-title">Daily Energy Budget</div>
+        
+        <div class="ring-container">
+          <svg class="ring-svg" viewBox="0 0 200 200">
+            <defs>
+              <linearGradient id="emerald-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#10B981" />
+                <stop offset="100%" stop-color="#06B6D4" />
+              </linearGradient>
+            </defs>
+            <circle class="ring-bg" cx="100" cy="100" r="85" fill="none" />
+            <circle id="calorieRingProgress" class="ring-progress" cx="100" cy="100" r="85" fill="none" />
+          </svg>
+          <div class="ring-center-text">
+            <span id="consumedCaloriesVal" class="ring-val">0</span>
+            <span class="ring-label">/ <span id="targetCaloriesVal">2200</span> kcal</span>
+          </div>
+        </div>
+
+        <div style="font-size: 0.9rem; color: var(--text-muted);">
+          Remaining: <strong id="remainingCaloriesVal" style="color: var(--primary-emerald);">2200</strong> kcal
+        </div>
+      </div>
+
+      <!-- Macro Bars Grid -->
+      <div class="macro-bars-grid">
+        
+        <!-- Protein Card -->
+        <div class="macro-card">
+          <div class="macro-card-header">
+            <span class="macro-title">Protein</span>
+            <span class="macro-tag tag-protein">4 kcal/g</span>
+          </div>
+          <div>
+            <div class="macro-val-large"><span id="consumedProteinVal">0</span>g <span class="macro-val-target">/ <span id="targetProteinVal">165</span>g</span></div>
+            <div class="progress-track">
+              <div id="fillProtein" class="progress-fill fill-protein" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carbs Card -->
+        <div class="macro-card">
+          <div class="macro-card-header">
+            <span class="macro-title">Carbohydrates</span>
+            <span class="macro-tag tag-carbs">4 kcal/g</span>
+          </div>
+          <div>
+            <div class="macro-val-large"><span id="consumedCarbsVal">0</span>g <span class="macro-val-target">/ <span id="targetCarbsVal">220</span>g</span></div>
+            <div class="progress-track">
+              <div id="fillCarbs" class="progress-fill fill-carbs" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fats Card -->
+        <div class="macro-card">
+          <div class="macro-card-header">
+            <span class="macro-title">Dietary Fats</span>
+            <span class="macro-tag tag-fat">9 kcal/g</span>
+          </div>
+          <div>
+            <div class="macro-val-large"><span id="consumedFatVal">0</span>g <span class="macro-val-target">/ <span id="targetFatVal">65</span>g</span></div>
+            <div class="progress-track">
+              <div id="fillFat" class="progress-fill fill-fat" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fiber Card -->
+        <div class="macro-card">
+          <div class="macro-card-header">
+            <span class="macro-title">Dietary Fiber</span>
+            <span class="macro-tag tag-fiber">Gut Health</span>
+          </div>
+          <div>
+            <div class="macro-val-large"><span id="consumedFiberVal">0</span>g <span class="macro-val-target">/ <span id="targetFiberVal">30</span>g</span></div>
+            <div class="progress-track">
+              <div id="fillFiber" class="progress-fill fill-fiber" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Dual Tabbed Meal Logger Card -->
+    <section class="logger-card">
+      <div class="tab-nav">
+        <button id="tabBtnText" class="tab-btn active">✍️ Log Meal by Text</button>
+        <button id="tabBtnImage" class="tab-btn">📸 Log Meal by Photo / Vision AI</button>
+      </div>
+
+      <!-- Text Input Tab Pane -->
+      <div id="paneText" class="tab-pane active">
+        <form id="textMealForm" class="logger-form">
+          
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label style="font-weight: 600; font-size: 0.95rem;">Select Meal Type:</label>
+            <div class="meal-type-selector">
+              <label class="radio-chip">
+                <input type="radio" name="mealType" value="breakfast">
+                <span class="chip-box">🌅 Breakfast</span>
+              </label>
+              <label class="radio-chip">
+                <input type="radio" name="mealType" value="lunch" checked>
+                <span class="chip-box">☀️ Lunch</span>
+              </label>
+              <label class="radio-chip">
+                <input type="radio" name="mealType" value="dinner">
+                <span class="chip-box">🌙 Dinner</span>
+              </label>
+              <label class="radio-chip">
+                <input type="radio" name="mealType" value="snack">
+                <span class="chip-box">🍏 Snack</span>
+              </label>
+            </div>
+          </div>
+
+          <textarea id="textMealInput" class="text-input-area" placeholder="Type what you ate (e.g., '3 scrambled eggs, 2 slices sourdough toast, 1/2 avocado, 1 cup black coffee')..."></textarea>
+          
+          <div class="sample-prompts">
+            <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: 600;">Try quick prompts:</span>
+            <span class="sample-chip" onclick="fillPrompt('3 eggs, 2 slices sourdough toast, 1/2 avocado')">3 eggs, sourdough & avocado</span>
+            <span class="sample-chip" onclick="fillPrompt('200g chicken breast, 1 cup brown rice, 100g steamed broccoli')">Chicken, rice & broccoli</span>
+            <span class="sample-chip" onclick="fillPrompt('1 scoop whey protein powder, 1 cup almond milk, 1 banana, 1 tbsp peanut butter')">Protein smoothie</span>
+            <span class="sample-chip" onclick="fillPrompt('200g sirloin steak, 1 baked sweet potato, 1 cup mixed salad')">Steak & sweet potato</span>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
+            <button type="submit" class="btn btn-primary">🤖 Analyze & Log Meal</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Image Input Tab Pane -->
+      <div id="paneImage" class="tab-pane">
+        <form id="imageMealForm" class="logger-form">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <label style="font-weight: 600; font-size: 0.95rem;">Select Meal Type:</label>
+            <div class="meal-type-selector">
+              <label class="radio-chip"><input type="radio" name="imgMealType" value="breakfast"><span class="chip-box">Breakfast</span></label>
+              <label class="radio-chip"><input type="radio" name="imgMealType" value="lunch" checked><span class="chip-box">Lunch</span></label>
+              <label class="radio-chip"><input type="radio" name="imgMealType" value="dinner"><span class="chip-box">Dinner</span></label>
+              <label class="radio-chip"><input type="radio" name="imgMealType" value="snack"><span class="chip-box">Snack</span></label>
+            </div>
+          </div>
+
+          <div class="upload-dropzone" id="dropzone">
+            <input type="file" id="imageFileInput" accept="image/*" style="display: none;">
+            <div style="font-size: 2.2rem; margin-bottom: 8px;">📷</div>
+            <div style="font-weight: 600; font-size: 1rem;">Click to upload meal photo or drag & drop</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Supports PNG, JPG, JPEG (Subagent will extract visual features & calculate macros)</div>
+          </div>
+
+          <div style="margin-top: 16px;">
+            <div style="font-size: 0.88rem; font-weight: 600; color: var(--text-muted);">Or select sample food photo to test:</div>
+            <div class="sample-food-grid">
+              <div class="sample-food-card" onclick="logSampleImage('static/samples/avocado_egg_toast.png', 'Avocado Egg Toast')">
+                <img src="/static/samples/avocado_egg_toast.png" class="sample-food-img" alt="Avocado Egg Toast">
+                <div class="sample-food-info">
+                  <div class="sample-food-title">Avocado Egg Toast</div>
+                  <div class="sample-food-desc">Poached eggs, avocado & sourdough</div>
+                </div>
+              </div>
+              <div class="sample-food-card" onclick="logSampleImage('static/samples/salmon_quinoa_bowl.png', 'Salmon Quinoa Bowl')">
+                <img src="/static/samples/salmon_quinoa_bowl.png" class="sample-food-img" alt="Salmon Quinoa Bowl">
+                <div class="sample-food-info">
+                  <div class="sample-food-title">Salmon Quinoa Bowl</div>
+                  <div class="sample-food-desc">Pan-seared salmon & quinoa bowl</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- Logged Meals Timeline Feed -->
+    <section>
+      <h3 class="timeline-section-title">📅 Today's Logged Meals</h3>
+      <div id="mealsContainer" class="meals-list">
+        <!-- Meal Cards dynamically inserted by JS -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Daily Report Modal -->
+  <div id="reportModal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h2 style="font-size: 1.4rem; font-weight: 700;">📊 Daily Health & Fitness Breakdown Report</h2>
+          <div style="font-size: 0.85rem; color: var(--text-muted);" id="reportDateHeader">Subagent Report Evaluation</div>
+        </div>
+        <button id="btnCloseReport" class="modal-close-btn">&times;</button>
+      </div>
+      <div id="reportMarkdownContainer" class="markdown-body">
+        <!-- Markdown content rendered here -->
+      </div>
+      <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+        <button class="btn btn-primary" onclick="window.print()">🖨️ Print / Save PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Profile Modal -->
+  <div id="profileModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 540px;">
+      <div class="modal-header">
+        <h2>👤 Fitness Goal & Macro Targets</h2>
+        <button id="btnCloseProfile" class="modal-close-btn">&times;</button>
+      </div>
+      <form id="profileForm" style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <label style="font-weight: 600; font-size: 0.9rem;">Full Name:</label>
+          <input type="text" id="profName" class="date-picker-input" style="width: 100%; margin-top: 4px;" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-weight: 600; font-size: 0.9rem;">Weight (kg):</label>
+            <input type="number" id="profWeight" class="date-picker-input" style="width: 100%; margin-top: 4px;" step="0.5" required>
+          </div>
+          <div>
+            <label style="font-weight: 600; font-size: 0.9rem;">Fitness Goal:</label>
+            <select id="profGoal" class="date-picker-input" style="width: 100%; margin-top: 4px;">
+              <option value="cutting">Cutting (Fat Loss)</option>
+              <option value="bulking">Bulking (Muscle Gain)</option>
+              <option value="maintenance">Maintenance</option>
+              <option value="athletic">Athletic Performance</option>
+            </select>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-weight: 600; font-size: 0.9rem;">Calories Target (kcal):</label>
+            <input type="number" id="profCalories" class="date-picker-input" style="width: 100%; margin-top: 4px;" required>
+          </div>
+          <div>
+            <label style="font-weight: 600; font-size: 0.9rem;">Protein Target (g):</label>
+            <input type="number" id="profProtein" class="date-picker-input" style="width: 100%; margin-top: 4px;" required>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div>
+            <label style="font-weight: 600; font-size: 0.9rem;">Carbs Target (g):</label>
+            <input type="number" id="profCarbs" class="date-picker-input" style="width: 100%; margin-top: 4px;" required>
+          </div>
+          <div>
+            <label style="font-weight: 600; font-size: 0.9rem;">Fat Target (g):</label>
+            <input type="number" id="profFat" class="date-picker-input" style="width: 100%; margin-top: 4px;" required>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; margin-top: 12px;">
+          <button type="submit" class="btn btn-primary">Save Fitness Targets</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

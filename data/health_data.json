@@ -1,0 +1,252 @@
+{
+  "user_profile": {
+    "user_id": "user_1",
+    "name": "Alex Rivera",
+    "age": 28,
+    "weight_kg": 75.0,
+    "height_cm": 178.0,
+    "fitness_goal": "cutting",
+    "daily_calories_target": 2200.0,
+    "daily_protein_target_g": 165.0,
+    "daily_carbs_target_g": 220.0,
+    "daily_fat_target_g": 65.0,
+    "daily_fiber_target_g": 30.0
+  },
+  "meal_logs_by_date": {
+    "2026-07-21": [
+      {
+        "id": "meal_6476a11b",
+        "timestamp": "2026-07-21T19:52:29.285239",
+        "meal_type": "lunch",
+        "input_type": "text",
+        "raw_input": "1 scoop whey protein powder, 1 cup almond milk, 1 banana, 1 tbsp peanut butter",
+        "items": [
+          {
+            "name": "Whey",
+            "quantity": 1.0,
+            "unit": "scoop",
+            "macros": {
+              "calories": 120.0,
+              "protein_g": 24.0,
+              "carbs_g": 3.0,
+              "fat_g": 1.5,
+              "fiber_g": 0.5
+            },
+            "confidence_score": 0.95
+          },
+          {
+            "name": "Almond Milk",
+            "quantity": 1.0,
+            "unit": "cup",
+            "macros": {
+              "calories": 120.0,
+              "protein_g": 8.0,
+              "carbs_g": 12.0,
+              "fat_g": 5.0,
+              "fiber_g": 0.0
+            },
+            "confidence_score": 0.95
+          },
+          {
+            "name": "Fresh Banana",
+            "quantity": 1.0,
+            "unit": "medium",
+            "macros": {
+              "calories": 105.0,
+              "protein_g": 1.3,
+              "carbs_g": 27.0,
+              "fat_g": 0.3,
+              "fiber_g": 3.1
+            },
+            "confidence_score": 0.95
+          },
+          {
+            "name": "Almond Butter",
+            "quantity": 1.0,
+            "unit": "tbsp",
+            "macros": {
+              "calories": 95.0,
+              "protein_g": 3.5,
+              "carbs_g": 3.5,
+              "fat_g": 8.0,
+              "fiber_g": 1.0
+            },
+            "confidence_score": 0.95
+          }
+        ],
+        "total_macros": {
+          "calories": 440.0,
+          "protein_g": 36.8,
+          "carbs_g": 45.5,
+          "fat_g": 14.8,
+          "fiber_g": 4.6
+        },
+        "image_url": null,
+        "notes": null
+      },
+      {
+        "id": "meal_f64171fe",
+        "timestamp": "2026-07-21T19:52:42.499269",
+        "meal_type": "lunch",
+        "input_type": "image",
+        "raw_input": "/Users/archikag/Desktop/health-tracker-agent/uploads/1784643762_Screenshot 2026-07-21 at 7.36.27\u202fPM.png",
+        "items": [
+          {
+            "name": "07 21 7.36.27 .Png 2026 07 21 7.36.27 (Google Search Grounded)",
+            "quantity": 1.0,
+            "unit": "serving",
+            "macros": {
+              "calories": 210.0,
+              "protein_g": 14.5,
+              "carbs_g": 22.0,
+              "fat_g": 7.5,
+              "fiber_g": 3.0
+            },
+            "confidence_score": 0.91
+          }
+        ],
+        "total_macros": {
+          "calories": 210.0,
+          "protein_g": 14.5,
+          "carbs_g": 22.0,
+          "fat_g": 7.5,
+          "fiber_g": 3.0
+        },
+        "image_url": "/Users/archikag/Desktop/health-tracker-agent/uploads/1784643762_Screenshot 2026-07-21 at 7.36.27\u202fPM.png",
+        "notes": "Detected via Gemini 2.5 Flash Vision: 2026 07 21 7.36.27 .Png 2026 07 21 7.36.27"
+      },
+      {
+        "id": "meal_17843484",
+        "timestamp": "2026-07-21T19:56:53.068338",
+        "meal_type": "lunch",
+        "input_type": "text",
+        "raw_input": "1 dosa",
+        "items": [
+          {
+            "name": "Dosa (Google Search Grounded)",
+            "quantity": 1.0,
+            "unit": "serving",
+            "macros": {
+              "calories": 210.0,
+              "protein_g": 14.5,
+              "carbs_g": 22.0,
+              "fat_g": 7.5,
+              "fiber_g": 3.0
+            },
+            "confidence_score": 0.91
+          }
+        ],
+        "total_macros": {
+          "calories": 210.0,
+          "protein_g": 14.5,
+          "carbs_g": 22.0,
+          "fat_g": 7.5,
+          "fiber_g": 3.0
+        },
+        "image_url": null,
+        "notes": null
+      },
+      {
+        "id": "meal_a1d1960a",
+        "timestamp": "2026-07-21T19:57:09.990135",
+        "meal_type": "dinner",
+        "input_type": "text",
+        "raw_input": "2 Idlis and 1 bowl sambhar",
+        "items": [
+          {
+            "name": "Idlis (Google Search Grounded)",
+            "quantity": 2.0,
+            "unit": "serving",
+            "macros": {
+              "calories": 420.0,
+              "protein_g": 29.0,
+              "carbs_g": 44.0,
+              "fat_g": 15.0,
+              "fiber_g": 6.0
+            },
+            "confidence_score": 0.91
+          },
+          {
+            "name": "Bowl Sambhar (Google Search Grounded)",
+            "quantity": 1.0,
+            "unit": "serving",
+            "macros": {
+              "calories": 210.0,
+              "protein_g": 14.5,
+              "carbs_g": 22.0,
+              "fat_g": 7.5,
+              "fiber_g": 3.0
+            },
+            "confidence_score": 0.91
+          }
+        ],
+        "total_macros": {
+          "calories": 630.0,
+          "protein_g": 43.5,
+          "carbs_g": 66.0,
+          "fat_g": 22.5,
+          "fiber_g": 9.0
+        },
+        "image_url": null,
+        "notes": null
+      },
+      {
+        "id": "meal_8033235a",
+        "timestamp": "2026-07-21T19:58:38.167891",
+        "meal_type": "dinner",
+        "input_type": "text",
+        "raw_input": "200g chicken breast, 1 cup brown rice, 100g steamed broccoli",
+        "items": [
+          {
+            "name": "Chicken",
+            "quantity": 1.0,
+            "unit": "100g",
+            "macros": {
+              "calories": 165.0,
+              "protein_g": 31.0,
+              "carbs_g": 0.0,
+              "fat_g": 3.6,
+              "fiber_g": 0.0
+            },
+            "confidence_score": 0.95
+          },
+          {
+            "name": "White Rice",
+            "quantity": 1.0,
+            "unit": "cup",
+            "macros": {
+              "calories": 205.0,
+              "protein_g": 4.3,
+              "carbs_g": 45.0,
+              "fat_g": 0.4,
+              "fiber_g": 0.6
+            },
+            "confidence_score": 0.95
+          },
+          {
+            "name": "Steamed Broccoli",
+            "quantity": 1.0,
+            "unit": "cup",
+            "macros": {
+              "calories": 55.0,
+              "protein_g": 3.7,
+              "carbs_g": 11.0,
+              "fat_g": 0.6,
+              "fiber_g": 5.0
+            },
+            "confidence_score": 0.95
+          }
+        ],
+        "total_macros": {
+          "calories": 425.0,
+          "protein_g": 39.0,
+          "carbs_g": 56.0,
+          "fat_g": 4.6,
+          "fiber_g": 5.6
+        },
+        "image_url": null,
+        "notes": null
+      }
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "doc_pii": {
+    "doc_id": "doc_pii",
+    "content": "User email [REDACTED_EMAIL] logged 2 eggs",
+    "metadata": {
+      "user_email": "[REDACTED_EMAIL]"
+    },
+    "vector": null
+  }
+}
