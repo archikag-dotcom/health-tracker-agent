@@ -48,6 +48,26 @@ class TestADKAgents(unittest.TestCase):
         self.assertGreaterEqual(macros["protein_g"], 20.0)
         self.assertGreater(macros["calories"], 300.0)
 
+    def test_gram_and_volume_scaling(self):
+        """Verify weight (e.g. 200g, 150g) and volume (e.g. 500ml) scale accurately against base units."""
+        subagent = MealAnalysisSubAgent()
+        result = subagent.execute_tool(
+            "parse_text_meal_macros",
+            raw_text="200g chicken breast, 150g grilled salmon, 500ml milk",
+            meal_type="dinner",
+        )
+        self.assertTrue(result.success)
+        items = result.data["meal_log"]["items"]
+        self.assertEqual(len(items), 3)
+        self.assertEqual(items[0]["quantity"], 2.0)
+        self.assertEqual(items[0]["macros"]["calories"], 330.0)
+        self.assertEqual(items[0]["macros"]["protein_g"], 62.0)
+        self.assertEqual(items[1]["quantity"], 1.5)
+        self.assertEqual(items[1]["macros"]["calories"], 312.0)
+        self.assertEqual(items[1]["macros"]["protein_g"], 30.6)
+        self.assertEqual(items[2]["quantity"], 2.0)
+        self.assertEqual(items[2]["macros"]["calories"], 240.0)
+
     def test_meal_analysis_subagent_image_logging(self):
         """Verify analyze_meal_image_macros tool detects meal items from image identifier."""
         subagent = MealAnalysisSubAgent()

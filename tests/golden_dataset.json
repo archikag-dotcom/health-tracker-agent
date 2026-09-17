@@ -19,11 +19,11 @@
     "input_raw": "200g chicken breast, 1 cup cooked rice, 1 cup steamed broccoli",
     "meal_type": "lunch",
     "expected_macros": {
-      "calories": 425.0,
-      "protein_g": 39.0,
+      "calories": 590.0,
+      "protein_g": 70.0,
       "carbs_g": 56.0,
-      "fat_g": 5.6,
-      "fiber_g": 6.0
+      "fat_g": 8.2,
+      "fiber_g": 5.6
     },
     "max_allowed_error_pct": 5.0
   },
@@ -33,11 +33,11 @@
     "input_raw": "1 scoop whey protein, 1 banana, 250ml milk",
     "meal_type": "snack",
     "expected_macros": {
-      "calories": 330.0,
-      "protein_g": 32.0,
-      "carbs_g": 39.0,
-      "fat_g": 5.0,
-      "fiber_g": 3.0
+      "calories": 345.0,
+      "protein_g": 33.3,
+      "carbs_g": 42.0,
+      "fat_g": 6.8,
+      "fiber_g": 3.6
     },
     "max_allowed_error_pct": 5.0
   },
@@ -47,10 +47,10 @@
     "input_raw": "200g sirloin steak, 1 sweet potato, mixed salad",
     "meal_type": "dinner",
     "expected_macros": {
-      "calories": 554.0,
-      "protein_g": 40.3,
+      "calories": 825.0,
+      "protein_g": 66.3,
       "carbs_g": 44.0,
-      "fat_g": 24.2,
+      "fat_g": 42.2,
       "fiber_g": 5.8
     },
     "max_allowed_error_pct": 5.0
@@ -61,10 +61,10 @@
     "input_raw": "150g grilled salmon, 1 cup cooked quinoa, 1/2 avocado",
     "meal_type": "lunch",
     "expected_macros": {
-      "calories": 510.0,
-      "protein_g": 29.5,
+      "calories": 614.0,
+      "protein_g": 39.7,
       "carbs_g": 43.2,
-      "fat_g": 24.3,
+      "fat_g": 31.0,
       "fiber_g": 8.4
     },
     "max_allowed_error_pct": 5.0

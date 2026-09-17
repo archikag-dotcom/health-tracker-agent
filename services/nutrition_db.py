@@ -67,64 +67,6 @@ def find_db_key(food_name: str) -> Optional[Tuple[str, Dict[str, Any]]]:
     return None
 
 
-def parse_natural_text_meal(text: str) -> List[FoodItem]:
-    """
-    Parses natural language food strings like '3 eggs, 2 slices toast, 1/2 avocado, 1 cup coffee'
-    into structured FoodItem entries with accurate macro calculations.
-    """
-    if not text or not text.strip():
-        return []
-
-    items: List[FoodItem] = []
-    # Split text by comma, 'and', '+', or newlines
-    chunks = re.split(r'[,+\n]| and ', text, flags=re.IGNORECASE)
-
-    for chunk in chunks:
-        chunk = chunk.strip()
-        if not chunk:
-            continue
-
-        # Extract number / fraction quantity
-        qty = 1.0
-        # Match pattern like "1/2", "0.5", "3", "2.5"
-        frac_match = re.match(r'^(\d+/\d+)\s+(.*)', chunk)
-        num_match = re.match(r'^(\d+(?:\.\d+)?)\s+(.*)', chunk)
-
-        if frac_match:
-            frac_str, rest = frac_match.groups()
-            num, den = frac_str.split('/')
-            qty = float(num) / float(den) if float(den) != 0 else 1.0
-            food_text = rest
-        elif num_match:
-            qty_str, rest = num_match.groups()
-            qty = float(qty_str)
-            food_text = rest
-        else:
-            food_text = chunk
-
-        # Clean unit words (e.g., "g", "grams", "cups", "slices", "pieces", "scoops", "tbsp")
-        food_text_clean = re.sub(r'\b(g|grams|cup|cups|slice|slices|piece|pieces|scoop|scoops|tbsp|tsp|half|medium|large|small|serving|servings)\b', '', food_text, flags=re.IGNORECASE).strip()
-
-        db_match = find_db_key(food_text_clean) or find_db_key(food_text)
-
-        if db_match:
-            db_key, entry = db_match
-            unit_name = entry["unit"]
-            # Scale macros by quantity
-            scaled_macros = MacroNutrients(
-                calories=round(entry["calories"] * qty, 1),
-                protein_g=round(entry["protein_g"] * qty, 1),
-                carbs_g=round(entry["carbs_g"] * qty, 1),
-                fat_g=round(entry["fat_g"] * qty, 1),
-                fiber_g=round(entry["fiber_g"] * qty, 1),
-            )
-            items.append(FoodItem(
-                name=entry["aliases"][0].title() if entry.get("aliases") else db_key.title(),
-                quantity=qty,
-                unit=unit_name,
-                macros=scaled_macros,
-                confidence_score=0.95,
-            ))
 def fetch_gemini_google_search_macros(food_name: str, qty: float = 1.0) -> FoodItem:
     """
     Queries Gemini Model with Google Search Grounding to fetch live USDA / web nutrition data
@@ -197,49 +139,95 @@ def fetch_gemini_google_search_macros(food_name: str, qty: float = 1.0) -> FoodI
     )
 
 
+def _scale_quantity_for_unit(raw_qty: float, parsed_unit: Optional[str], base_unit: str) -> float:
+    """Scales raw user quantity (e.g., 200g, 250ml, 2 cups) relative to database entry base unit (e.g., 100g, cup)."""
+    u = parsed_unit.lower() if parsed_unit else None
+    b = base_unit.lower()
+
+    if u in ("g", "gram", "grams"):
+        return round(raw_qty / 100.0, 2)
+    elif u == "kg":
+        return round((raw_qty * 1000.0) / 100.0, 2)
+    elif u in ("oz", "ounce", "ounces"):
+        return round((raw_qty * 28.3495) / 100.0, 2)
+    elif u in ("lb", "lbs"):
+        return round((raw_qty * 453.592) / 100.0, 2)
+    elif u in ("ml", "milliliters"):
+        if b == "cup":
+            return round(raw_qty / 250.0, 2)
+        return round(raw_qty / 100.0, 2)
+    elif u == "l":
+        if b == "cup":
+            return round((raw_qty * 1000.0) / 250.0, 2)
+        return round((raw_qty * 1000.0) / 100.0, 2)
+    elif u == "half":
+        return raw_qty if b == "half" else round(raw_qty * 0.5, 2)
+    else:
+        if raw_qty >= 25.0 and u is None:
+            if b == "100g":
+                return round(raw_qty / 100.0, 2)
+            elif b == "cup":
+                return round(raw_qty / 250.0, 2)
+        return raw_qty
+
+
 def parse_natural_text_meal(text: str) -> List[FoodItem]:
     """
     Parses natural language food strings like '3 eggs, 2 slices toast, 1/2 avocado, 1 cup coffee'
-    into structured FoodItem entries with accurate macro calculations.
+    or '200g chicken breast, 150g grilled salmon, 250ml milk' into structured FoodItem entries
+    with accurate unit-scaled macro calculations.
     """
     if not text or not text.strip():
         return []
 
     items: List[FoodItem] = []
-    # Split text by comma, 'and', '+', or newlines
     chunks = re.split(r'[,+\n]| and ', text, flags=re.IGNORECASE)
+
+    unit_pattern = (
+        r'^(?:(\d+/\d+|\d+(?:\.\d+)?)\s*'
+        r'(?:(g|grams|gram|kg|ml|milliliters|l|oz|ounces|ounce|lb|lbs|'
+        r'cup|cups|slice|slices|piece|pieces|scoop|scoops|tbsp|tablespoon|tablespoons|'
+        r'tsp|teaspoon|teaspoons|half|medium|large|small|serving|servings)\b)?\s*)?(.*)$'
+    )
 
     for chunk in chunks:
         chunk = chunk.strip()
         if not chunk:
             continue
 
-        # Extract number / fraction quantity
-        qty = 1.0
-        frac_match = re.match(r'^(\d+/\d+)\s+(.*)', chunk)
-        num_match = re.match(r'^(\d+(?:\.\d+)?)\s+(.*)', chunk)
+        raw_qty = 1.0
+        parsed_unit: Optional[str] = None
+        food_text = chunk
 
-        if frac_match:
-            frac_str, rest = frac_match.groups()
-            num, den = frac_str.split('/')
-            qty = float(num) / float(den) if float(den) != 0 else 1.0
-            food_text = rest
-        elif num_match:
-            qty_str, rest = num_match.groups()
-            qty = float(qty_str)
-            if qty > 20.0:
-                qty = 1.0
-            food_text = rest
-        else:
-            food_text = chunk
+        match = re.match(unit_pattern, chunk, flags=re.IGNORECASE)
+        if match:
+            qty_str, unit_str, rest = match.groups()
+            if qty_str:
+                if '/' in qty_str:
+                    num, den = qty_str.split('/')
+                    raw_qty = float(num) / float(den) if float(den) != 0 else 1.0
+                else:
+                    raw_qty = float(qty_str)
+            if unit_str:
+                parsed_unit = unit_str.lower()
+            if rest and rest.strip():
+                food_text = rest.strip()
 
-        food_text_clean = re.sub(r'\b(g|grams|cup|cups|slice|slices|piece|pieces|scoop|scoops|tbsp|tsp|half|medium|large|small|serving|servings)\b', '', food_text, flags=re.IGNORECASE).strip()
+        food_text_clean = re.sub(
+            r'\b(of|g|grams|gram|kg|ml|milliliters|l|oz|ounces|ounce|lb|lbs|'
+            r'cup|cups|slice|slices|piece|pieces|scoop|scoops|tbsp|tsp|half|medium|large|small|serving|servings)\b',
+            '',
+            food_text,
+            flags=re.IGNORECASE
+        ).strip()
+        food_text_clean = re.sub(r'\s+', ' ', food_text_clean).strip()
 
         db_match = find_db_key(food_text_clean) or find_db_key(food_text)
 
         if db_match:
             db_key, entry = db_match
             unit_name = entry["unit"]
+            qty = _scale_quantity_for_unit(raw_qty, parsed_unit, unit_name)
             scaled_macros = MacroNutrients(
                 calories=round(entry["calories"] * qty, 1),
                 protein_g=round(entry["protein_g"] * qty, 1),
@@ -255,8 +243,8 @@ def parse_natural_text_meal(text: str) -> List[FoodItem]:
                 confidence_score=0.95,
             ))
         else:
-            # Live Gemini Google Search Grounding lookup for unlisted food items
-            grounded_item = fetch_gemini_google_search_macros(food_name=food_text, qty=qty)
+            qty = _scale_quantity_for_unit(raw_qty, parsed_unit, "serving")
+            grounded_item = fetch_gemini_google_search_macros(food_name=food_text_clean or food_text, qty=qty)
             items.append(grounded_item)
 
     return items

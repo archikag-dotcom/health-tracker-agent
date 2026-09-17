@@ -187,6 +187,38 @@ def reset_app():
     return {"success": True, "message": "App reset to clean fresh state."}
 
 
+# --- SECURITY TEST ENDPOINTS (INTENTIONALLY VULNERABLE FOR CODEMENDER TESTING) ---
+@app.get("/api/debug/system-check")
+def debug_system_check(host: str = "localhost"):
+    """[VULNERABLE: CWE-78 OS Command Injection] Executes shell command with unsanitized user input."""
+    import subprocess
+    output = subprocess.check_output(f"ping -c 1 {host}", shell=True, text=True)
+    return {"status": "ok", "ping_output": output}
+
+
+@app.get("/api/debug/read-log")
+def debug_read_log(filename: str = "health_data.json"):
+    """[VULNERABLE: CWE-22 Path Traversal] Reads arbitrary file path constructed from user parameter."""
+    target_path = os.path.join("data", filename)
+    with open(target_path, "r") as f:
+        return {"filename": filename, "content": f.read()}
+
+
+@app.get("/api/debug/search-user")
+def debug_search_user(username: str):
+    """[VULNERABLE: CWE-89 SQL Injection] Formats raw user input directly into SQL query string."""
+    import sqlite3
+    conn = sqlite3.connect(":memory:")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE users (id INT, username TEXT, goal TEXT)")
+    cursor.execute("INSERT INTO users VALUES (1, 'alex', 'cutting')")
+    query = f"SELECT * FROM users WHERE username = '{username}'"
+    cursor.execute(query)
+    rows = cursor.fetchall()
+    conn.close()
+    return {"query": query, "results": rows}
+
+
 # Mount uploads and static web interface
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 STATIC_DIR = os.path.join(os.path.dirname(__file__), "static")
